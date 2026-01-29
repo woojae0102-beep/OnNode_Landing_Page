@@ -141,12 +141,28 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
 
         {plan.id !== 'plan-keyword-analysis' && (
           <CardFooter className="pt-6">
-            <Button 
-              className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-              size="lg"
-            >
-              {plan.ctaText}
-            </Button>
+            {plan.href ? (
+              <a 
+                href={plan.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block w-full"
+              >
+                <Button 
+                  className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                  size="lg"
+                >
+                  {plan.ctaText}
+                </Button>
+              </a>
+            ) : (
+              <Button 
+                className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+                size="lg"
+              >
+                {plan.ctaText}
+              </Button>
+            )}
           </CardFooter>
         )}
       </Card>
