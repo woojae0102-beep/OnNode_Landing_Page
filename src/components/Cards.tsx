@@ -43,6 +43,39 @@ export function FeatureCard({ feature }: { feature: Feature }) {
 }
 
 export function PricingCard({ plan }: { plan: PricingPlan }) {
+  // 카페24 직결제 로직 (오류 방지를 위해 로직 단순화)
+  const handleBuyClick = () => {
+    if (!plan.href) return;
+
+    // URL에서 상품번호 추출 (없으면 기본값 25)
+    const productNoMatch = plan.href.match(/product_no=(\d+)/);
+    const productNo = productNoMatch ? productNoMatch[1] : "25";
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://ai365mall.cafe24.com/exec/front/order/basket_direct';
+
+    const params: Record<string, string> = {
+      product_no: productNo,
+      quantity: "1",
+      basket_type: "A",
+      delvtype: "A",
+      return_url: "/order/orderform.html"
+    };
+
+    Object.entries(params).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -72,13 +105,10 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
 
         <CardContent className="flex-1 space-y-6">
           {plan.id === 'plan-keyword-analysis' ? (
-            // 광고 키워드 분석 플랜의 경우 다른 레이아웃
             <div className="space-y-4">
               <div className="text-center text-sm text-muted-foreground mb-4">
                 비즈니스 규모에 맞는 플랜을 선택하세요
               </div>
-              
-              {/* Basic 플랜 */}
               <div className="border rounded-lg p-4 space-y-3">
                 <div className="flex justify-between items-center">
                   <h4 className="font-semibold text-sm">Basic</h4>
@@ -87,11 +117,8 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
                     <span className="text-xs text-muted-foreground">/월</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">하루 3건 키워드 분석</p>
-                <Button size="sm" className="w-full">구매하기</Button>
+                <Button size="sm" className="w-full" onClick={handleBuyClick}>구매하기</Button>
               </div>
-              
-              {/* Standard 플랜 */}
               <div className="border rounded-lg p-4 space-y-3 border-primary/50 bg-primary/5">
                 <div className="flex justify-between items-center">
                   <h4 className="font-semibold text-sm">Standard</h4>
@@ -100,11 +127,8 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
                     <span className="text-xs text-muted-foreground">/월</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">하루 30건 키워드 분석</p>
-                <Button size="sm" className="w-full">구매하기</Button>
+                <Button size="sm" className="w-full" onClick={handleBuyClick}>구매하기</Button>
               </div>
-              
-              {/* Unlimited 플랜 */}
               <div className="border rounded-lg p-4 space-y-3">
                 <div className="flex justify-between items-center">
                   <h4 className="font-semibold text-sm">Unlimited</h4>
@@ -113,18 +137,15 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
                     <span className="text-xs text-muted-foreground">/월</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground">무제한 이용 가능</p>
-                <Button size="sm" className="w-full">구매하기</Button>
+                <Button size="sm" className="w-full" onClick={handleBuyClick}>구매하기</Button>
               </div>
             </div>
           ) : (
-            // 기존 레이아웃
             <>
               <div className="flex items-baseline gap-1">
                 <span className="text-3xl font-bold tracking-tighter text-foreground">{plan.price}</span>
                 {plan.period && <span className="text-sm text-muted-foreground">/{plan.period}</span>}
               </div>
-
               <div className="space-y-3">
                 {plan.features.map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
@@ -141,28 +162,13 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
 
         {plan.id !== 'plan-keyword-analysis' && (
           <CardFooter className="pt-6">
-            {plan.href ? (
-              <a 
-                href={plan.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block w-full"
-              >
-                <Button 
-                  className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-                  size="lg"
-                >
-                  {plan.ctaText}
-                </Button>
-              </a>
-            ) : (
-              <Button 
-                className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
-                size="lg"
-              >
-                {plan.ctaText}
-              </Button>
-            )}
+            <Button 
+              className="w-full font-semibold transition-all duration-200 bg-primary text-primary-foreground hover:bg-primary/90 shadow-md"
+              size="lg"
+              onClick={handleBuyClick}
+            >
+              {plan.ctaText}
+            </Button>
           </CardFooter>
         )}
       </Card>
@@ -172,10 +178,7 @@ export function PricingCard({ plan }: { plan: PricingPlan }) {
 
 export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
   return (
-    <motion.div
-      whileHover={{ y: -2 }}
-      className="h-full"
-    >
+    <motion.div whileHover={{ y: -2 }} className="h-full">
       <Card className="h-full border-border bg-card shadow-sm">
         <CardContent className="pt-8 flex flex-col h-full">
           <div className="flex gap-1 mb-4">
@@ -183,11 +186,9 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               <Star key={i} size={14} className="fill-primary text-primary" />
             ))}
           </div>
-          
           <blockquote className="flex-1 italic text-foreground/90 leading-relaxed mb-6">
             &ldquo;{testimonial.content}&rdquo;
           </blockquote>
-
           <div className="flex items-center gap-3 border-t border-border pt-6">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted overflow-hidden ring-1 ring-border">
               {testimonial.avatar ? (
@@ -199,12 +200,8 @@ export function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
               )}
             </div>
             <div className="flex flex-col">
-              <cite className="text-sm font-bold not-italic text-foreground">
-                {testimonial.author}
-              </cite>
-              <span className="text-xs text-muted-foreground">
-                {testimonial.role}
-              </span>
+              <cite className="text-sm font-bold not-italic text-foreground">{testimonial.author}</cite>
+              <span className="text-xs text-muted-foreground">{testimonial.role}</span>
             </div>
           </div>
         </CardContent>
