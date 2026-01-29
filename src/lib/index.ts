@@ -18,6 +18,7 @@ export interface PricingPlan {
   features: string[];
   isPopular?: boolean;
   ctaText: string;
+  href: string;
 }
 
 export interface Testimonial {

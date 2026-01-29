@@ -53,6 +53,7 @@ export const pricingPlans: PricingPlan[] = [
       "자동 고객 CS + 업로드 지원",
     ],
     ctaText: "구매하기",
+    href: "https://ai365mall.cafe24.com/shop1/product/detail.html?product_no=24"
   },
   {
     id: "plan-keyword-analysis",
@@ -67,6 +68,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     isPopular: true,
     ctaText: "지금 시작하기",
+    href: "#",
   },
   {
     id: "plan-expert",
@@ -79,6 +81,7 @@ export const pricingPlans: PricingPlan[] = [
       "글로벌 확장팩: 국가별 패키지",
     ],
     ctaText: "구매하기",
+    href: "#",
   },
 ];
 
