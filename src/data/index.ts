@@ -54,7 +54,7 @@ export const pricingPlans: PricingPlan[] = [
     ],
     ctaText: "구매하기",
     // src/data/index.ts
-    href: "https://ai365mall.cafe24.com/exec/front/order/basket_direct?product_no=25&quantity=1"
+    href: "https://ai365mall.cafe24.com/exec/front/order/basket_direct?product_no=25&quantity=1&return_url=/order/orderform.html"
   },
   {
     id: "plan-keyword-analysis",
