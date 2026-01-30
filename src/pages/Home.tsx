@@ -89,7 +89,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[ 
-              { icon: TrendingUp, title: "비효율적 광고 집행", desc: "어떤 매체에서 매출이 나오는지 모르는 상태" },
+              { icon: TrendingUp, title: "매출에 도움이 되는 분석 자료", desc: "어떤 매체에서 매출이 나오는지 모르는 상태" },
               { icon: Clock, title: "반복적인 수동 작업", desc: "매일 아침 3시간씩 소요되는 매출 데이터 정리" },
               { icon: AlertCircle, title: "예측 불가능한 품절", desc: "데이터 부재로 인한 잦은 품절과 기회 손실" },
             ].map((item, idx) => (
