@@ -189,13 +189,13 @@ export default function Home() {
                 </h2>
                 <ul className="space-y-6">
                   {[
+                    "메신저를 통한 편리한 접근성",
                     "기존 매출 부진의 원인 정밀 분석",
                     "광고 수익률(ROAS) 25% 향상",
                     "콘텐츠 제작 속도 10분 완성",
                     "데이터 누락 및 휴먼 에러 0%",
                     "스토어 자동 관리",
                     "자동 cs 관리",
-                    "메신저를 통한 편리한 접근성",
                   ].map((benefit, idx) => (
                     <li key={idx} className="flex items-center gap-4">
                       <CheckCircle2 className="text-primary w-6 h-6" />
