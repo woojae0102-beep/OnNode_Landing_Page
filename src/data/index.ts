@@ -58,7 +58,7 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     id: "plan-keyword-analysis",
-    name: "Ad Keyword Analysis",
+    name: "매출 키워드 분석",
     price: "29,000",  // ← 이것만 수정
     period: "월",
     description: "무제한 키워드 분석",  // ← 이것만 수정
