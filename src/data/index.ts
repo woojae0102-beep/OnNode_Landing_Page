@@ -58,17 +58,19 @@ export const pricingPlans: PricingPlan[] = [
   },
   {
     id: "plan-keyword-analysis",
-    name: "광고 키워드 분석",
-    price: "29,000 ~ 79,000",
+    name: "Ad Keyword Analysis",
+    price: "29,000",  // ← 이것만 수정
     period: "월",
-    description: "비즈니스 규모에 맞는 키워드 분석 서비스",
-    features: [
-      "Basic: 월 29,000원 - 하루 3건 키워드 분석",
-      "Standard: 월 59,000원 - 하루 30건 키워드 분석",
-      "Unlimited: 월 79,000원 - 무제한 이용 가능",
+    description: "무제한 키워드 분석",  // ← 이것만 수정
+    features: [  // ← 이 배열 전체 교체
+      "무제한 키워드 검색",
+      "Google + Naver + Yahoo Japan 지원",
+      "검색당 상위 100개 키워드 제공",
+      "24시간 스마트 캐칭",
+      "실시간 경쟁 분석",
     ],
     isPopular: true,
-    ctaText: "지금 시작하기",
+    ctaText: "구매하기",  // ← 버튼 텍스트 수정 (선택)
     href: "#",
   },
   {
